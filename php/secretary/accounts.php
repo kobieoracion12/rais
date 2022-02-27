@@ -1,3 +1,8 @@
+<?php
+  include_once("../assets/session.php");
+  include_once("../assets/userdata.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,119 +68,61 @@
           
           <h4 class="m-3">My Account</h4>
 
-            <div class="m-3">
-              <label for="acc-no" class="form-label">Account #</label>
-              <input type="text" class="form-control" name="acc-no" disabled><br>
+            <form method="post" action="../assets/update.php">
+              <div class="m-3">
+                <label for="acc-no" class="form-label">Account #</label>
+                <input type="text" class="form-control" name="acc-no" id="acc-no" value="<?php echo $_SESSION['user-id'] ?>" disabled><br>
 
-              <div class="row">
-                <div class="col-6">
-                  <label for="acc-first" class="form-label">First Name</label>
-                  <input type="text" class="form-control" name="acc-first"><br>
-                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <label for="acc-first" class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="acc-first" id="acc-first" value="<?php echo $_SESSION['first']?>"><br>
+                  </div>
 
-                <div class="col-6">
-                  <label for="acc-last" class="form-label">Last Name</label>
-                  <input type="text" class="form-control" name="acc-last"><br>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-4">
-                  <label for="acc-email" class="form-label">Email Address</label>
-                  <input type="text" class="form-control" name="acc-email"><br>
-                </div>
-
-                <div class="col-4">
-                  <label for="acc-mobile" class="form-label">Mobile Number</label>
-                  <input type="text" class="form-control" name="acc-mobile"><br>
-                </div>
-
-                <div class="col-4">
-                  <label for="acc-bday" class="form-label">Birth Date</label>
-                  <input type="date" class="form-control" name="acc-bday"><br>
-                </div>
-              </div>
-
-              <hr>
-
-              <div class="row">
-                <div class="col-4">
-                  <label for="acc-email" class="form-label">Username</label>
-                  <input type="text" class="form-control" name="acc-email"><br>
-                </div>
-
-                <div class="col-4">
-                  <label for="acc-pwd" class="form-label">Password</label>
-                  <input type="password" class="form-control" name="acc-pwd"><br>
-                </div>
-
-                <div class="col-4">
-                  <label for="acc-priv" class="form-label">Privilege</label>
-                  <input type="text" class="form-control" name="acc-priv" disabled>
-                </div>
-
-                <button type="submit" name="set-deadline" class="btn btn-primary mt-4">Update</button>
-            </div>
-
-            <!-- View Modal -->
-            <form method="post" action="#">
-              <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-xl">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalToggleLabel">Set Deadline</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                      <div class="m-3">
-                        <label for="add-form" class="form-label">Department</label>
-                        <input type="text" class="form-control" name="add-form" disabled><br>
-
-                        <label for="add-form" class="form-label">Attached Document</label>
-                        <input type="file" class="form-control" name="add-form" disabled><br>
-
-                        <label for="add-desc" class="form-label">Description</label>
-                        <textarea class="form-control" rows="5" name="add-desc" disabled></textarea><br>
-
-                        <hr>
-
-                        <label for="add-form" class="form-label">Set Deadline</label>
-                        <input type="date" class="form-control" name="add-form"><br>
-                      </div>
-                    </div>
-
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" name="set-deadline" class="btn btn-primary">Set Deadline</button>
-                    </div>
+                  <div class="col-6">
+                    <label for="acc-last" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="acc-last" id="acc-last" value="<?php echo $_SESSION['last']?>"><br>
                   </div>
                 </div>
-              </div>
-            </form>
 
-            <!-- Delete Modal -->
-            <form method="post" action="#">
-              <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-sm">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                <div class="row">
+                  <div class="col-4">
+                    <label for="acc-email" class="form-label">Email Address</label>
+                    <input type="text" class="form-control" name="acc-email" id="acc-email" value="<?php echo $_SESSION['email']?>"><br>
+                  </div>
 
-                    <div class="modal-body">
-                      Are you sure you want to delete this?
-                    </div>
+                  <div class="col-4">
+                    <label for="acc-mobile" class="form-label">Mobile Number</label>
+                    <input type="text" class="form-control" name="acc-mobile" id="acc-mobile" value="<?php echo $_SESSION['mobile']?>"><br>
+                  </div>
 
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" name="delete-file" class="btn btn-danger">Delete</button>
-                    </div>
+                  <div class="col-4">
+                    <label for="acc-bday" class="form-label">Birth Date</label>
+                    <input type="date" class="form-control" name="acc-bday" id="acc-bday" value="<?php echo $_SESSION['bday']?>"><br>
                   </div>
                 </div>
+
+                <hr>
+
+                <div class="row">
+                  <div class="col-4">
+                    <label for="acc-user" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="acc-user" id="acc-user" value="<?php echo $_SESSION['username']?>"><br>
+                  </div>
+
+                  <div class="col-4">
+                    <label for="acc-pwd" class="form-label">Change Password</label>
+                    <input type="password" class="form-control" name="acc-pwd" id="acc-pwd"><br>
+                  </div>
+
+                  <div class="col-4">
+                    <label for="acc-priv" class="form-label">Privilege</label>
+                    <input type="text" class="form-control" name="acc-priv" value="<?php echo $_SESSION['priv']?>" disabled>
+                  </div>
+
+                  <button type="submit" name="update_profile" id="update_profile" class="btn btn-primary mt-4">Update</button>
               </div>
             </form>
-
           </div>
         </div>
       </div>

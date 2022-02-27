@@ -1,3 +1,8 @@
+<?php
+  include_once("../assets/session.php");
+  include_once("../assets/userdata.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,22 +95,17 @@
           
           <h4 class="m-3">Add Documents</h4>
 
-          <form method="post" action="#" class="p-4">
-            <label for="add-form" class="form-label">Select Department</label>
-            <select class="form-select" name="add-dept">
-              <option selected>Select Department</option>
-              <option value="Engineering">Engineering's Office</option>
-              <option value="Treasury">Treasury Office</option>
-              <option value="Mayor">Mayor's Office</option>
-            </select><br>
+          <form method="post" action="../assets/upload-docu.php" class="p-4">
+            <label for="add-dept" class="form-label">Department</label>
+            <input type="text" class="form-control" name="add-dept" value="<?php echo $_SESSION['priv']?>" disabled><br>
 
-            <label for="add-form" class="form-label">Attach Document</label>
-            <input type="file" class="form-control" name="add-form"><br>
+            <label for="add-file" class="form-label">Attach Document</label>
+            <input type="file" class="form-control" name="add-file"><br>
 
             <label for="add-desc" class="form-label">Description</label>
             <textarea class="form-control" rows="5" name="add-desc"></textarea><br>
 
-            <input type="submit" name="add-button" class="btn btn-primary w-100">
+            <input type="submit" name="upload" id="upload" class="btn btn-primary w-100">
           </form>
 
         </div>

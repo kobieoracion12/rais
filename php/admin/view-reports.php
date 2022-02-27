@@ -1,9 +1,14 @@
+<?php
+  include_once("../assets/session.php");
+  include_once("../assets/userdata.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Admin | Home</title>
+	<title>Admin | Reports</title>
 	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../../css/fontawesome.css">
   <link rel="stylesheet" type="text/css" href="../../css/brands.css">
@@ -14,7 +19,6 @@
 <div class="container-fluid">
   <div class="row flex-nowrap">
 
-    <!-- Sidebar -->
     <!-- Sidebar -->
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white text-start bg-dark" style="width: 280px; height: 100vh;">
       <ul class="nav nav-pills flex-column mb-auto mt-5">
@@ -99,6 +103,35 @@
                 <th scope="col">Action</th>
               </tr>
             </thead>
+
+            <?php
+              $sql = "SELECT * FROM documents ORDER BY docu_no DESC";
+
+              $result = $config -> query($sql);
+
+              if($result -> num_rows > 0) {
+                while($row = $result -> fetch_assoc()) {
+                  echo '
+                    <tr>
+                      <th>'.$row["acc_no"].'</th>
+                      <td>'.$row["docu_no"].'</td>
+                      <td>No Files</td>
+                      <td>'.$row["description"].'</td>
+                      <td>'.$row["status"].'</td>
+                      <td>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal">
+                          <i class="fa-solid fa-eye"></i>
+                        </button>
+
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>                
+                  ';
+                }
+              }
+            ?>
 
           </table>
         </div>

@@ -1,3 +1,8 @@
+<?php
+  include_once("../assets/session.php");
+  include_once("../assets/userdata.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +66,7 @@
       <div class="card shadow-sm">
         <div class="card-body p-4">
           
-          <h4 class="m-3">Create Deadline</h4>
+          <h4 class="m-3">Review Document</h4>
 
           <div class="p-4"> 
 
@@ -79,26 +84,35 @@
                 </tr>
               </thead>
 
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mayor's Office</td>
-                  <td>resolution.pdf</td>
-                  <td>Please check for approval</td>
-                  <td>Pending</td>
-                  <td>February 27, 2022</td>
-                  <td>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal">
-                      <i class="fa-solid fa-eye"></i>
-                    </button>
+              <?php
+                $sql = "SELECT * FROM documents ORDER BY docu_no DESC";
 
-                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                      <i class="fa-solid fa-box-archive"></i>
-                    </button>
-                  </td>
-                </tr>
-                
-              </tbody>
+                $result = $config -> query($sql);
+
+                if($result -> num_rows > 0) {
+                  while($row = $result -> fetch_assoc()) {
+                    echo '
+                      <tr>
+                        <th>'.$row["acc_no"].'</th>
+                        <td>'.$row["docu_no"].'</td>
+                        <td>No Files</td>
+                        <td>'.$row["description"].'</td>
+                        <td>'.date("F d, Y", strtotime($row["uploaded_date"])).'</td>
+                        <td>'.$row["status"].'</td>
+                        <td>
+                          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal">
+                            <i class="fa-solid fa-eye"></i>
+                          </button>
+
+                          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>                
+                    ';
+                  }
+                }
+            ?>
             </table>
 
             <!-- View Modal -->

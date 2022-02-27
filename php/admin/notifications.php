@@ -1,3 +1,8 @@
+<?php
+  include_once("../assets/session.php");
+  include_once("../assets/userdata.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +19,6 @@
 <div class="container-fluid">
   <div class="row flex-nowrap">
 
-    <!-- Sidebar -->
     <!-- Sidebar -->
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white text-start bg-dark" style="width: 280px; height: 100vh;">
       <ul class="nav nav-pills flex-column mb-auto mt-5">
@@ -91,17 +95,28 @@
           
           <h4 class="m-3">Notifications</h4>
 
-            <!-- List Group -->
-            <div class="list-group mt-4">
-              <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">New Document from Mayor's Office</h5>
-                  <small>4 hours ago</small>
-                </div>
-                <p class="mb-1">Please check for approval</p>
-                <small class="fst-italic">Click for more info.</small>
-              </a>
-            </div>
+            <?php
+              $sql = "SELECT * FROM documents ORDER BY docu_no DESC";
+
+              $result = $config -> query($sql);
+
+              if($result -> num_rows > 0) {
+                while($row = $result -> fetch_assoc()) {
+                  echo '
+                    <div class="list-group pt-2">
+                      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">New Document from '.$row["department_origin"].'</h5>
+                          <small>'.$row["status"].'</small>
+                        </div>
+                        <p class="mb-1">'.$row["description"].'</p>
+                        <small class="fst-italic">Click for more info.</small>
+                      </a>
+                    </div>                
+                  ';
+                }
+              }
+            ?>
 
             <!-- View Modal -->
             <form method="post" action="#">

@@ -1,3 +1,8 @@
+<?php
+  include_once("../assets/session.php");
+  include_once("../assets/userdata.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +19,6 @@
 <div class="container-fluid">
   <div class="row flex-nowrap">
 
-    <!-- Sidebar -->
     <!-- Sidebar -->
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white text-start bg-dark" style="width: 280px; height: 100vh;">
       <ul class="nav nav-pills flex-column mb-auto mt-5">
@@ -101,30 +105,43 @@
                   <th scope="col">Department</th>
                   <th scope="col">File Name</th>
                   <th scope="col">Description</th>
+                  <th scope="col">Status</th>
                   <th scope="col">Date Submitted</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
 
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mayor's Office</td>
-                  <td>resolution.pdf</td>
-                  <td>Please check for approval</td>
-                  <td>February 27, 2022</td>
-                  <td>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal">
-                      <i class="fa-solid fa-eye"></i>
-                    </button>
+              <?php
+                $sql = "SELECT * FROM documents WHERE status = 'Pending' ORDER BY docu_no DESC";
 
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                      <i class="fa-solid fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                
-              </tbody>
+                $result = $config -> query($sql);
+
+                if($result -> num_rows > 0) {
+                  while($row = $result -> fetch_assoc()) {
+                    echo '
+                      <tr>
+                        <th>'.$row["docu_no"].'</th>
+                        <td>'.$row["department_origin"].'</td>
+                        <td>No Files</td>
+                        <td>'.$row["description"].'</td>
+                        <td>'.$row["status"].'</td>
+                        <td>'.date("F d, Y", strtotime($row["uploaded_date"])).'</td>
+                        <td>
+                          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal">
+                            <i class="fa-solid fa-eye"></i>
+                          </button>
+
+                          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>                
+                    ';
+                  }
+                }
+
+              ?>
+
             </table>
 
             <!-- View Modal -->

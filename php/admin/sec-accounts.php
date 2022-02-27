@@ -1,3 +1,8 @@
+<?php
+  include_once("../assets/session.php");
+  include_once("../assets/userdata.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,25 +110,35 @@
                 </tr>
               </thead>
 
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Kobie</td>
-                  <td>Oracion</td>
-                  <td>kobie.oracion12@gmail.com</td>
-                  <td>admin</td>
-                  <td>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal">
-                      <i class="fa-solid fa-eye"></i>
-                    </button>
+              <?php
+                $sql = "SELECT * FROM accounts WHERE acc_priv = 'Secretary' ORDER BY acc_no DESC";
 
-                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                      <i class="fa-solid fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                
-              </tbody>
+                $result = $config -> query($sql);
+
+                if($result -> num_rows > 0) {
+                  while($row = $result -> fetch_assoc()) {
+                    echo '
+                      <tr>
+                        <th>'.$row["acc_no"].'</th>
+                        <td>'.$row["first_name"].'</td>
+                        <td>'.$row["last_name"].'</td>
+                        <td>'.$row["email_address"].'</td>
+                        <td>'.$row["username"].'</td>
+                        <td>
+                          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal">
+                            <i class="fa-solid fa-eye"></i>
+                          </button>
+
+                          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>                
+                    ';
+                  }
+                }
+
+              ?>
             </table>
 
             <!-- View Modal -->
