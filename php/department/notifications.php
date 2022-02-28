@@ -1,3 +1,8 @@
+<?php
+  include_once("../assets/session.php");
+  include_once("../assets/userdata.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,78 +68,29 @@
           
           <h4 class="m-3">Notifications</h4>
 
-            <!-- List Group -->
-            <div class="list-group mt-4">
-              <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">New Document from Mayor's Office</h5>
-                  <small>4 hours ago</small>
-                </div>
-                <p class="mb-1">Please check for approval</p>
-                <small class="fst-italic">Click for more info.</small>
-              </a>
-            </div>
+          <?php
+              $sql = "SELECT * FROM documents ORDER BY docu_no DESC";
 
-            <!-- View Modal -->
-            <form method="post" action="#">
-              <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-xl">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalToggleLabel">Set Deadline</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+              $result = $config -> query($sql);
 
-                    <div class="modal-body">
-                      <div class="m-3">
-                        <label for="add-form" class="form-label">Department</label>
-                        <input type="text" class="form-control" name="add-form" disabled><br>
+              if($result -> num_rows > 0) {
+                while($row = $result -> fetch_assoc()) {
+                  echo '
+                    <div class="list-group pt-2">
+                      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">New Document from '.$row["department_origin"].'</h5>
+                          <small>'.$row["status"].'</small>
+                        </div>
+                        <p class="mb-1">'.$row["description"].'</p>
+                        <small class="fst-italic">Click for more info.</small>
+                      </a>
+                    </div>                
+                  ';
+                }
+              }
+            ?>  
 
-                        <label for="add-form" class="form-label">Attached Document</label>
-                        <input type="file" class="form-control" name="add-form" disabled><br>
-
-                        <label for="add-desc" class="form-label">Description</label>
-                        <textarea class="form-control" rows="5" name="add-desc" disabled></textarea><br>
-
-                        <hr>
-
-                        <label for="add-form" class="form-label">Set Deadline</label>
-                        <input type="date" class="form-control" name="add-form"><br>
-                      </div>
-                    </div>
-
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" name="set-deadline" class="btn btn-primary">Set Deadline</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-
-            <!-- Delete Modal -->
-            <form method="post" action="#">
-              <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-sm">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                      Are you sure you want to delete this?
-                    </div>
-
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" name="delete-file" class="btn btn-danger">Delete</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-
-          </div>
         </div>
       </div>
     </div>

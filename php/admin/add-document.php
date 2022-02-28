@@ -95,7 +95,22 @@
           
           <h4 class="m-3">Add Documents</h4>
 
-          <form method="post" action="../assets/upload-docu.php" class="p-4">
+          <?php
+            if(isset($_GET['documentuploaded'])) {
+              echo '<div class="alert alert-success text-center m-4" role="alert">
+                    Document uploaded
+                    </div>';
+            }
+
+            if(isset($_GET['uploadfailed'])) {
+              echo '<div class="alert alert-danger text-center m-4" role="alert">
+                    Error uploading report
+                    </div>';
+            }
+
+          ?>
+
+          <form method="post" action="../assets/upload-docu.php" class="p-4 pt-2">
             <label for="add-dept" class="form-label">Department</label>
             <input type="text" class="form-control" name="add-dept" value="<?php echo $_SESSION['priv']?>" disabled><br>
 

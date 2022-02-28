@@ -177,9 +177,6 @@
   </div>
 </div>
 
-
-
-
 </body>
 <script type="text/javascript" src="../../js/bootstrap.js"></script>
 </html>

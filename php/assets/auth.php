@@ -23,7 +23,7 @@ if(isset($_POST['login_btn']))
         header('Location: ../secretary/index.php');
 		exit;
     }
-    else if($usertypes['acc_priv'] == "Department")
+    else if($usertypes['acc_priv'] == "Secretary" || $usertypes['acc_priv'] == "Mayor" || $usertypes['acc_priv'] == "Engineering")
     {
         $_SESSION['username'] = $user_name;
         header('Location: ../department/index.php');

@@ -118,65 +118,6 @@
               }
             ?>
 
-            <!-- View Modal -->
-            <form method="post" action="#">
-              <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-xl">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalToggleLabel">Set Deadline</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                      <div class="m-3">
-                        <label for="add-form" class="form-label">Department</label>
-                        <input type="text" class="form-control" name="add-form" disabled><br>
-
-                        <label for="add-form" class="form-label">Attached Document</label>
-                        <input type="file" class="form-control" name="add-form" disabled><br>
-
-                        <label for="add-desc" class="form-label">Description</label>
-                        <textarea class="form-control" rows="5" name="add-desc" disabled></textarea><br>
-
-                        <hr>
-
-                        <label for="add-form" class="form-label">Set Deadline</label>
-                        <input type="date" class="form-control" name="add-form"><br>
-                      </div>
-                    </div>
-
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" name="set-deadline" class="btn btn-primary">Set Deadline</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-
-            <!-- Delete Modal -->
-            <form method="post" action="#">
-              <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-sm">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                      Are you sure you want to delete this?
-                    </div>
-
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" name="delete-file" class="btn btn-danger">Delete</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-
           </div>
         </div>
       </div>
